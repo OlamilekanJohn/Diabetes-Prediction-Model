@@ -7,9 +7,9 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  AWS_REGION: eu-west-1                    # change to your region
-  ECR_REPOSITORY: diabetes/model
-  ECS_SERVICE: fastapi-container-service-lblv1hdo
+  AWS_REGION: eu-west-2                   # change to your region
+  ECR_REPOSITORY: diabetes-model
+  ECS_SERVICE: fastapi-container-service-vfkzwqla
   ECS_CLUSTER: fastapi-cluster          # change to your cluster name
   CONTAINER_NAME: fastapi-container
 
