@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/macbook/Desktop/Python files/First deployed Project/mlruns/553655614246005379/b0a5541b2af54efcb8866702e645fafa/artifacts
+end_time: 1773276242241
+entry_point_name: ''
+experiment_id: '553655614246005379'
+lifecycle_stage: active
+run_id: b0a5541b2af54efcb8866702e645fafa
+run_name: indecisive-rat-127
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1773276234767
+status: 3
+tags: []
+user_id: macbook

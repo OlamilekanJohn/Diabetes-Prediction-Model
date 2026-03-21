@@ -1,0 +1,10 @@
+artifact_location: file:///Users/macbook/Desktop/Python files/First deployed Project/mlruns/553655614246005379/models/m-d6a5405cb1ee4840bb1888b3a457f809/artifacts
+creation_timestamp: 1773276235521
+experiment_id: '553655614246005379'
+last_updated_timestamp: 1773276242237
+model_id: m-d6a5405cb1ee4840bb1888b3a457f809
+model_type: null
+name: model
+source_run_id: b0a5541b2af54efcb8866702e645fafa
+status: 2
+status_message: null
