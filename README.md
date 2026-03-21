@@ -76,8 +76,6 @@ First deployed Project/
 │   └── raw/
 │       └── diabetes_unclean.csv    # Original, unmodified source data
 │
-├── great_expections/               # Legacy data validation config (replaced by Pandera)
-│
 ├── mlruns/                         # MLflow experiment tracking logs
 │
 ├── notebooks/
@@ -213,16 +211,16 @@ When the project grew beyond a single file, Python couldn't locate utility funct
 
 **2. The data validation library crashed in production**
 
-The original plan was to use **Great Expectations** (still visible in the `great_expections/` folder) to validate incoming data before it reached the model. During testing, it crashed due to incompatibilities between its internal API and the version of Pandas being used — specifically around the `ge.dataset.PandasDataset` action.
+The original plan was to use **Great Expectations** to validate incoming data before it reached the model. During testing, it crashed due to incompatibilities between its internal API and the version of Pandas being used — specifically around the `ge.dataset.PandasDataset` action.
 
-*Fix:* Switched to **Pandera** (`src/utils/validate_data.py`), a simpler and more stable library that handled the same validation tasks cleanly. The data processing pipeline was also reordered so that data is cleaned *before* validation — reducing the chance of cascading failures downstream. MLflow experiment tracking was adjusted accordingly.
+*Fix:* Switched to **Pandera** (`src/utils/validate_data_3.py`), a simpler and more stable library that handled the same validation tasks cleanly. The data processing pipeline was also reordered so that data is cleaned *before* validation — reducing the chance of cascading failures downstream. MLflow experiment tracking was adjusted accordingly.
 
 ---
 
 ## 🛠️ Running It Locally
 
 ### Requirements
-- Python 3.8+
+- Python 3.12+
 - Docker (optional, for containerised setup)
 
 ### Steps
@@ -260,36 +258,6 @@ The model is also available programmatically via a REST API.
 
 ### `POST /predict`
 
-Send health metrics, get a risk prediction back.
-
-**Example request:**
-```json
-{
-  "glucose": 148,
-  "bmi": 33.6,
-  "age": 50,
-  "blood_pressure": 72,
-  "insulin": 0,
-  "skin_thickness": 35,
-  "diabetes_pedigree": 0.627,
-  "pregnancies": 6
-}
-```
-
-**Example response:**
-```json
-{
-  "risk": "High",
-  "probability": 0.82,
-  "recommendations": [
-    "Consult a healthcare professional promptly.",
-    "Increase physical activity to at least 150 minutes per week.",
-    "Reduce intake of refined carbohydrates and sugars."
-  ]
-}
-```
-
----
 
 ## 🤝 Contributing
 
