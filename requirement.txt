@@ -11,11 +11,6 @@ great_expectations
 pytest
 gradio
 optuna
-glob
-logging
 pandera
-typing
-time
-argparse
-seaborn 
-matplotlib.pyplot
+seaborn
+matplotlib
