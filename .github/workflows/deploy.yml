@@ -11,7 +11,7 @@ env:
   ECR_REPOSITORY: diabetes-model
   ECS_SERVICE: fastapi-container-service-vfkzwqla
   ECS_CLUSTER: fastapi-cluster          # change to your cluster name
-  CONTAINER_NAME: fastapi-container
+  CONTAINER_NAME: diabetes-model
 
 jobs:
   deploy:
