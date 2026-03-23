@@ -107,7 +107,7 @@ def gradio_interface(
 demo = gr.Interface(
     fn=gradio_interface,
     inputs=[
-        gr.Dropdown(['M', 'F'], label="Gender"), 
+        gr.Dropdown(choices=['M', 'F'], label="Gender"), 
         gr.Number(label="AGE", minimum=0, maximum=150),
         gr.Number(label="Urea", minimum=0, maximum=50),
         gr.Number(label="Cr", minimum=0, maximum=800),
@@ -119,7 +119,7 @@ demo = gr.Interface(
         gr.Number(label="VLDL", minimum=0, maximum=45),
         gr.Number(label="BMI", minimum=11, maximum=59)
     ], 
-    outputs=gr.Textbox(label="Diabetes Risk Prediction", line=2), 
+    outputs=gr.Textbox(label="Diabetes Risk Prediction", lines=2), 
     title=" Diabetes Risk Predictor", 
     description="""
     **Predict patient diabetic risk probability using machine learning**
@@ -136,7 +136,11 @@ demo = gr.Interface(
         # Low risk example
         ["M or F", "Bmi=20","HbA1c=3.0","TG=0.6", "Chol=3"]
     ],
-    theme=gr.themes.soft() # professional appearance 
+    theme=gr.themes.Soft() # professional appearance 
+).launch(
+    server_name="0.0.0.0",
+    server_port=7860,
+    theme=gr.themes.Soft()
 )
 
 # === Mount Gradio UI into FastApI ===
@@ -150,6 +154,7 @@ app = gr.mount_gradio_app(
 )
 
 
+demo.launch(server_name="0.0.0.0", server_port=7860)
 
 
 

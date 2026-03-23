@@ -14,42 +14,24 @@ Key Responsibitlies:
 """
 
 import os
+import joblib
 import pandas as pd
-import mlflow
-import glob
 
 # === Model loading configuration ===
-# Use environment variable if set, else default path inside Docker
-MODEL_DIR = os.getenv(
-    "MODEL_DIR",
-    "/app/model"  # default path inside Docker container
-)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+MODEL_PATH = os.getenv("MODEL_PATH", os.path.join(BASE_DIR, "model/diabetes_model.pkl"))
+FEATURE_FILE = os.getenv("FEATURE_FILE", os.path.join(BASE_DIR, "model/feature_columns.txt"))
 
-model = None
-
-# === Load MLflow model ===
+# === Load model ===
 try:
-    model = mlflow.pyfunc.load_model(MODEL_DIR)
-    print(f"Model loaded successfully from {MODEL_DIR}")
+    model = joblib.load(MODEL_PATH)
+    print(f"Model loaded successfully from {MODEL_PATH}")
 except Exception as e:
-    print(f"Failed to load model from {MODEL_DIR}: {e}")
-    # Fallback: check local mlruns directory (development)
-    try:
-        local_model_paths = glob.glob("mlruns/**/artifacts", recursive=True)
-        if local_model_paths:
-            latest_model = max(local_model_paths, key=os.path.getmtime)
-            model = mlflow.pyfunc.load_model(latest_model)
-            MODEL_DIR = latest_model
-            print(f"Fallback: Model loaded from local path {latest_model}")
-        else:
-            raise Exception("No model found in local mlruns")
-    except Exception as fallback_error:
-        raise Exception(f"Failed to load model: {e}. Fallback failed: {fallback_error}")
+    raise Exception(f"Failed to load model: {e}")
 
 # === Load feature columns used during training ===
 try:
-    feature_file = os.path.join(MODEL_DIR, "feature_columns.txt")
-    with open(feature_file) as f:
+    with open(FEATURE_FILE) as f:
         FEATURE_COLS = [ln.strip() for ln in f if ln.strip()]
     print(f"Loaded {len(FEATURE_COLS)} feature columns from training")
 except Exception as e:
